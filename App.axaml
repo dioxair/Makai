@@ -5,6 +5,28 @@
     <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.Styles>
-        <FluentTheme DensityStyle="Compact" />
+        <FluentTheme DensityStyle="Compact">
+            <FluentTheme.Palettes>
+                <ColorPaletteResources x:Key="Light" Accent="#ffcf4d4d" AltHigh="White" AltLow="White"
+                                       AltMedium="White" AltMediumHigh="White" AltMediumLow="White" BaseHigh="Black"
+                                       BaseLow="#ffcccccc" BaseMedium="#ff898989" BaseMediumHigh="#ff5d5d5d"
+                                       BaseMediumLow="#ff737373" ChromeAltLow="#ff5d5d5d" ChromeBlackHigh="Black"
+                                       ChromeBlackLow="#ffcccccc" ChromeBlackMedium="#ff5d5d5d"
+                                       ChromeBlackMediumLow="#ff898989" ChromeDisabledHigh="#ffcccccc"
+                                       ChromeDisabledLow="#ff898989" ChromeGray="#ff737373" ChromeHigh="#ffcccccc"
+                                       ChromeLow="#ffececec" ChromeMedium="#ffe6e6e6" ChromeMediumLow="#ffececec"
+                                       ChromeWhite="White" ListLow="#ffe6e6e6" ListMedium="#ffcccccc"
+                                       RegionColor="#fff8f9fa" />
+                <ColorPaletteResources x:Key="Dark" Accent="#ffcf4d4d" AltHigh="Black" AltLow="Black" AltMedium="Black"
+                                       AltMediumHigh="Black" AltMediumLow="Black" BaseHigh="White" BaseLow="#ff303030"
+                                       BaseMedium="#ff989898" BaseMediumHigh="#ffb2b2b2" BaseMediumLow="#ff646464"
+                                       ChromeAltLow="#ffb2b2b2" ChromeBlackHigh="Black" ChromeBlackLow="#ffb2b2b2"
+                                       ChromeBlackMedium="Black" ChromeBlackMediumLow="Black"
+                                       ChromeDisabledHigh="#ff303030" ChromeDisabledLow="#ff989898"
+                                       ChromeGray="#ff7e7e7e" ChromeHigh="#ff7e7e7e" ChromeLow="#ff141414"
+                                       ChromeMedium="#ff1b1b1b" ChromeMediumLow="#ff292929" ChromeWhite="White"
+                                       ListLow="#ff1b1b1b" ListMedium="#ff303030" RegionColor="#ff0b0b0b" />
+            </FluentTheme.Palettes>
+        </FluentTheme>
     </Application.Styles>
 </Application>

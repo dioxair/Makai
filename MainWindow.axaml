@@ -3,13 +3,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        d:DesignWidth="800"
-        d:DesignHeight="450"
         x:Class="Makai.MainWindow"
         Title="Makai"
-        Width="400"
+        Width="600"
         Height="400"
-        WindowStartupLocation="CenterScreen"
-        SystemDecorations="None">
-    Welcome to Avalonia!
+        WindowStartupLocation="CenterScreen">
+    <Grid x:Name="MainGrid">
+        <Label
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Content="Placeholder"
+            FontSize="40" />
+    </Grid>
 </Window>
