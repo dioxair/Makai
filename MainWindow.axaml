@@ -7,12 +7,46 @@
         Title="Makai"
         Width="600"
         Height="400"
+        MinWidth="500"
+        MinHeight="300"
         WindowStartupLocation="CenterScreen">
-    <Grid x:Name="MainGrid">
-        <Label
+    <Panel>
+        <Grid
+            x:Name="MainGrid"
             HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-            Content="Placeholder"
-            FontSize="40" />
-    </Grid>
+            VerticalAlignment="Center"
+            RowDefinitions="Auto, Auto, Auto, Auto, *">
+            <WrapPanel
+                Grid.Row="0">
+                <TextBox Margin="6" Watermark="Score" Width="150" />
+                <TextBox Margin="6" Watermark="HiScore" Width="150" />
+                <TextBox Margin="6" Watermark="Lives" Width="150" />
+            </WrapPanel>
+            <WrapPanel HorizontalAlignment="Center" Grid.Row="1">
+                <TextBox Margin="6" Watermark="Spell card" Width="150" />
+                <TextBox Margin="6" Watermark="UFOs" Width="150" />
+            </WrapPanel>
+            <WrapPanel
+                Grid.Row="2"
+                HorizontalAlignment="Center">
+                <CheckBox Margin="6">Invulnerability</CheckBox>
+                <CheckBox Margin="6">Autobomb</CheckBox>
+                <CheckBox Margin="6">Autocollect items</CheckBox>
+                <CheckBox Margin="6">Graze</CheckBox>
+            </WrapPanel>
+        </Grid>
+        <Grid>
+            <Label
+                x:Name="StatusLabel"
+                Margin="15"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Content="Status: Idle" />
+            <Label
+                Margin="15"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Content="Made by Samuel Olagunju" />
+        </Grid>
+    </Panel>
 </Window>
