@@ -11,6 +11,7 @@ namespace Makai.Utils
     {
         private Mem memory = new();
         private readonly Signatures signatures = new();
+        private readonly Offsets offsets = new();
 
         public float Power;
         public int Score;
