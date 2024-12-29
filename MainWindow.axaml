@@ -22,18 +22,27 @@
                 <TextBox Margin="6" Watermark="HiScore" Width="150" />
                 <TextBox Margin="6" Watermark="Lives" Width="150" />
             </WrapPanel>
-            <WrapPanel HorizontalAlignment="Center" Grid.Row="1">
+            <WrapPanel
+                Grid.Row="1"
+                HorizontalAlignment="Center" >
                 <TextBox Margin="6" Watermark="Spell card" Width="150" />
                 <TextBox Margin="6" Watermark="UFOs" Width="150" />
             </WrapPanel>
             <WrapPanel
                 Grid.Row="2"
-                HorizontalAlignment="Center">
+                HorizontalAlignment="Center"
+                Cursor="Hand">
                 <CheckBox Margin="6">Invulnerability</CheckBox>
                 <CheckBox Margin="6">Autobomb</CheckBox>
                 <CheckBox Margin="6">Autocollect items</CheckBox>
                 <CheckBox Margin="6">Graze</CheckBox>
             </WrapPanel>
+            <Button
+                Grid.Row="3"
+                HorizontalAlignment="Center"
+                Cursor="Hand">
+                Apply
+            </Button>
         </Grid>
         <Grid>
             <Label
