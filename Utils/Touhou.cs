@@ -23,6 +23,10 @@ namespace Makai.Utils
         public int Power => GetIntFromSignature(signatures.Power, offsets.Power);
         public int Graze => GetIntFromSignature(signatures.Graze, offsets.Graze);
 
+        public int UFOSlot1 => GetIntFromSignature(signatures.UFOSlot1, offsets.UFOSlot1);
+        public int UFOSlot2 => GetIntFromSignature(signatures.UFOSlot2, offsets.UFOSlot2);
+        public int UFOSlot3 => GetIntFromSignature(signatures.UFOSlot3, offsets.UFOSlot3);
+
         public float Lives =>
             GetFloatFromSignature(signatures.Lives, signatures.LivesPart, offsets.Lives, offsets.LivesPart);
         public float Spellcards =>
@@ -65,7 +69,6 @@ namespace Makai.Utils
             int value = memory.ReadInt(memAddr);
             return value;
         }
-
         private float GetFloatFromSignature(string signature1, string signature2, uint offset1, uint offset2)
         {
             int p1 = GetIntFromSignature(signature1, offset1);
@@ -73,7 +76,6 @@ namespace Makai.Utils
 
             return float.Parse($"{p1}.{p2}");
         }
-
         private void ModifyFirstByte(string signature, byte mod)
         {
             long codeAddr = memory.AoBScan(signature).Result.FirstOrDefault();

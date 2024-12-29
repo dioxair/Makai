@@ -11,6 +11,10 @@
         public string Power => "a1 ? ? ? ? 89 54 24 ? 99";
         public string Graze => "8b 0d ? ? ? ? d9 5c 24 ? d9 ee 8b 54 24 ? d9 5c 24 ? 89 54 24";
 
+        public string UFOSlot1 => "a1 ? ? ? ? 53 55 8b 6c 24";
+        public string UFOSlot2 => "a1 ? ? ? ? 8b ce";
+        public string UFOSlot3 => "a1 ? ? ? ? 69 f6";
+
         public string Lives => "89 1d ? ? ? ? eb ? a1 ? ? ? ? 3b c5";
         public string LivesPart => "89 2d ? ? ? ? 75";
         public string Spellcards => "a1 ? ? ? ? 8b 0d ? ? ? ? 50 51";
@@ -20,9 +24,13 @@
     public class Offsets
     {
         public uint Score => 0x2;
-        public uint HighScore => 0x1;
+        public uint HighScore => 0x01;
         public uint Power => 0x01;
         public uint Graze => 0x02;
+
+        public uint UFOSlot1 => 0x01;
+        public uint UFOSlot2 => 0x01;
+        public uint UFOSlot3 => 0x01;
 
         public uint Lives => 0x02;
         public uint LivesPart => 0x02;
