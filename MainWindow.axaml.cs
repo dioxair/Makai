@@ -7,6 +7,7 @@ using Makai.Utils;
 using MsBox.Avalonia.Enums;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Base;
+using Avalonia.Threading;
 
 namespace Makai;
 
@@ -30,5 +31,21 @@ public partial class MainWindow : Window
             ButtonResult result = await messageBox.ShowAsync();
             if (result == ButtonResult.Ok) Environment.Exit(0);
         }
+
+        th12[0].EnableRaisingEvents = true;
+        th12[0].Exited += IfTouhouExited;
+    }
+
+    private async void IfTouhouExited(object? sender, EventArgs e)
+    {
+        await Dispatcher.UIThread.Invoke(async () =>
+        {
+            IMsBox<ButtonResult> messageBox = MessageBoxManager
+                .GetMessageBoxStandard("Touhou exited",
+                    "It looks like you closed Touhou 12.\n" +
+                    "Touhou 12 needs to be running in order to use Makai. Please restart Touhou 12 and run Makai again.");
+            ButtonResult result = await messageBox.ShowAsync();
+            if (result == ButtonResult.Ok) Environment.Exit(0);
+        });
     }
 }
