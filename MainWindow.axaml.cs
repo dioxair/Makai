@@ -10,10 +10,10 @@ namespace Makai;
 
 public partial class MainWindow : Window
 {
-private Touhou touhou = new();
+    private Touhou touhou = new();
 
-public MainWindow()
-{
-InitializeComponent();
-}
+    public MainWindow()
+    {
+        InitializeComponent();
+    }
 }
