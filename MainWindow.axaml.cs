@@ -16,4 +16,10 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
     }
+
+    private void Control_OnLoaded(object? sender, RoutedEventArgs e)
+    {
+        touhou.Invulnerability = true;
+        Console.WriteLine();
+    }
 }

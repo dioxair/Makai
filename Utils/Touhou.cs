@@ -80,7 +80,8 @@ namespace Makai.Utils
         {
             long codeAddr = memory.AoBScan(signature).Result.FirstOrDefault();
             string memAddr = codeAddr.ToString("X");
-            byte[] bytes = memory.ReadBytes(memAddr, 20);
+            int numOfBytes = signature.Split(" ").Length;
+            byte[] bytes = memory.ReadBytes(memAddr, numOfBytes);
             bytes[0] = mod;
 
             memory.WriteBytes(memAddr, bytes);
