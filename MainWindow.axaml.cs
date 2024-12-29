@@ -10,16 +10,10 @@ namespace Makai;
 
 public partial class MainWindow : Window
 {
-    private Touhou touhou = new();
+private Touhou touhou = new();
 
-    public MainWindow()
-    {
-        InitializeComponent();
-    }
-
-    private void Control_OnLoaded(object? sender, RoutedEventArgs e)
-    {
-        touhou.Invulnerability = true;
-        Console.WriteLine();
-    }
+public MainWindow()
+{
+InitializeComponent();
+}
 }

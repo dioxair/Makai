@@ -9,7 +9,6 @@
         Height="400"
         MinWidth="500"
         MinHeight="300"
-        Loaded="Control_OnLoaded"
         WindowStartupLocation="CenterScreen">
     <Panel>
         <Grid
