@@ -9,7 +9,8 @@
         Height="400"
         MinWidth="500"
         MinHeight="300"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Loaded="Control_OnLoaded">
     <Panel>
         <Grid
             x:Name="MainGrid"
