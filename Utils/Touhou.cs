@@ -1,6 +1,11 @@
 ﻿using Memory;
+using MsBox.Avalonia.Base;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using Tmds.DBus.Protocol;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Makai.Utils
 {
@@ -21,20 +26,56 @@ namespace Makai.Utils
             memory.OpenProcess("th12.exe");
         }
 
-        public int Score => GetIntFromSignature(signatures.Score, offsets.Score);
-        public int HighScore => GetIntFromSignature(signatures.HighScore, offsets.HighScore);
-        public int Power => GetIntFromSignature(signatures.Power, offsets.Power);
-        public int Graze => GetIntFromSignature(signatures.Graze, offsets.Graze);
+        public int Score
+        {
+            get => GetIntFromSignature(signatures.Score, offsets.Score);
+            set => SetIntFromSignature(signatures.Score, offsets.Score, value.ToString());
+        }
+        public int HighScore
+        {
+            get => GetIntFromSignature(signatures.HighScore, offsets.HighScore);
+            set => SetIntFromSignature(signatures.HighScore, offsets.HighScore, value.ToString());
+        }
+        public int Power
+        {
+            get => GetIntFromSignature(signatures.Power, offsets.Power);
+            set => SetIntFromSignature(signatures.Power, offsets.Power, value.ToString());
+        }
+        public int Graze
+        {
+            get => GetIntFromSignature(signatures.Graze, offsets.Graze);
+            set => SetIntFromSignature(signatures.Graze, offsets.Graze, value.ToString());
+        }
 
-        public int UFOSlot1 => GetIntFromSignature(signatures.UFOSlot1, offsets.UFOSlot1);
-        public int UFOSlot2 => GetIntFromSignature(signatures.UFOSlot2, offsets.UFOSlot2);
-        public int UFOSlot3 => GetIntFromSignature(signatures.UFOSlot3, offsets.UFOSlot3);
+        public int UFOSlot1
+        {
+            get => GetIntFromSignature(signatures.UFOSlot1, offsets.UFOSlot1);
+            set => SetIntFromSignature(signatures.UFOSlot1, offsets.UFOSlot1, value.ToString());
+        }
+        public int UFOSlot2
+        {
+            get => GetIntFromSignature(signatures.UFOSlot2, offsets.UFOSlot2);
+            set => SetIntFromSignature(signatures.UFOSlot2, offsets.UFOSlot2, value.ToString());
+        }
+        public int UFOSlot3
+        {
+            get => GetIntFromSignature(signatures.UFOSlot3, offsets.UFOSlot3);
+            set => SetIntFromSignature(signatures.UFOSlot3, offsets.UFOSlot3, value.ToString());
+        }
 
-        public float Lives =>
-            GetFloatFromSignature(signatures.Lives, signatures.LivesPart, offsets.Lives, offsets.LivesPart);
-        public float Spellcards =>
-            GetFloatFromSignature(signatures.Spellcards, signatures.SpellcardsPart, offsets.Spellcards,
+        public float Lives
+        {
+            get => GetFloatFromSignature(signatures.Lives, signatures.LivesPart, offsets.Lives, offsets.LivesPart);
+            set => SetFloatFromSignature(signatures.Lives, signatures.LivesPart, offsets.Lives, offsets.LivesPart,
+                value);
+        }
+        public float Spellcards
+        {
+            get => GetFloatFromSignature(signatures.Spellcards, signatures.SpellcardsPart, offsets.Spellcards,
                 offsets.SpellcardsPart);
+            set => SetFloatFromSignature(signatures.Spellcards, signatures.SpellcardsPart, offsets.Spellcards,
+                offsets.SpellcardsPart, value);
+        }
 
         public bool Autobomb
         {
@@ -74,21 +115,31 @@ namespace Makai.Utils
             return address;
         }
 
-        private int GetIntFromSignature(string signature, uint offset)
+        private bool SetIntFromSignature(string signature, uint offset, string value) =>
+            memory.WriteMemory(GetMemoryAddress(signature, offset), "int", value);
+        private bool SetFloatFromSignature(string signature1, string signature2, uint offset1, uint offset2,
+            float value)
         {
-            long codeAddr = GetCachedAddress(signature);
-            string memPointer = (codeAddr + offset).ToString("X");
-            string memAddr = memory.ReadInt(memPointer).ToString("X");
-            int value = memory.ReadInt(memAddr);
-            return value;
-        }
-        private float GetFloatFromSignature(string signature1, string signature2, uint offset1, uint offset2)
-        {
-            int p1 = GetIntFromSignature(signature1, offset1);
-            int p2 = GetIntFromSignature(signature2, offset2);
+            if (!float.TryParse(value.ToString(CultureInfo.InvariantCulture), out float floatValue))
+                return false;
 
-            return float.Parse($"{p1}.{p2}");
+            int integerPart = (int)floatValue;
+            int fractionalPart = (int)((floatValue - integerPart) *
+                                       Math.Pow(10, CountDecimalPlaces(value.ToString(CultureInfo.InvariantCulture))));
+
+            string memAddr1 = GetMemoryAddress(signature1, offset1);
+            string memAddr2 = GetMemoryAddress(signature2, offset2);
+
+            bool writeSuccess1 = memory.WriteMemory(memAddr1, "int", integerPart.ToString());
+            bool writeSuccess2 = memory.WriteMemory(memAddr2, "int", fractionalPart.ToString());
+
+            return writeSuccess1 && writeSuccess2;
         }
+
+        private int GetIntFromSignature(string signature, uint offset) =>
+            memory.ReadInt(GetMemoryAddress(signature, offset));
+        private float GetFloatFromSignature(string signature1, string signature2, uint offset1, uint offset2) =>
+            float.Parse($"{GetIntFromSignature(signature1, offset1)}.{GetIntFromSignature(signature2, offset2)}");
         private void ModifyFirstByte(string signature, byte mod)
         {
             long codeAddr = GetCachedAddress(signature);
@@ -98,6 +149,19 @@ namespace Makai.Utils
             bytes[0] = mod;
 
             memory.WriteBytes(memAddr, bytes);
+        }
+
+        private string GetMemoryAddress(string signature, uint offset)
+        {
+            long codeAddr = GetCachedAddress(signature);
+            string pointer = (codeAddr + offset).ToString("X");
+            return memory.ReadInt(pointer).ToString("X");
+        }
+        private int CountDecimalPlaces(string number)
+        {
+            int decimalIndex = number.IndexOf('.');
+            if (decimalIndex == -1) return 0;
+            return number.Length - decimalIndex - 1;
         }
     }
 }
