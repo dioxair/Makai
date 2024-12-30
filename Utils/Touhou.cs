@@ -1,4 +1,5 @@
 ﻿using Memory;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Makai.Utils
@@ -8,6 +9,8 @@ namespace Makai.Utils
         private readonly Mem memory = new();
         private readonly Signatures signatures = new();
         private readonly Offsets offsets = new();
+
+        private readonly Dictionary<string, long> cachedMemAddresses = new();
 
         private bool autobomb;
         private bool autocollectItems;
@@ -61,9 +64,19 @@ namespace Makai.Utils
             }
         }
 
+        private long GetCachedAddress(string signature)
+        {
+            if (!cachedMemAddresses.TryGetValue(signature, out long address))
+            {
+                address = memory.AoBScan(signature).Result.FirstOrDefault();
+                cachedMemAddresses[signature] = address;
+            }
+            return address;
+        }
+
         private int GetIntFromSignature(string signature, uint offset)
         {
-            long codeAddr = memory.AoBScan(signature).Result.FirstOrDefault();
+            long codeAddr = GetCachedAddress(signature);
             string memPointer = (codeAddr + offset).ToString("X");
             string memAddr = memory.ReadInt(memPointer).ToString("X");
             int value = memory.ReadInt(memAddr);
@@ -78,7 +91,7 @@ namespace Makai.Utils
         }
         private void ModifyFirstByte(string signature, byte mod)
         {
-            long codeAddr = memory.AoBScan(signature).Result.FirstOrDefault();
+            long codeAddr = GetCachedAddress(signature);
             string memAddr = codeAddr.ToString("X");
             int numOfBytes = signature.Split(" ").Length;
             byte[] bytes = memory.ReadBytes(memAddr, numOfBytes);
