@@ -16,7 +16,7 @@
             x:Name="MainGrid"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            RowDefinitions="Auto, Auto, Auto, Auto, *">
+            RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, *">
             <WrapPanel
                 Grid.Row="0">
                 <TextBox x:Name="ScoreTextBox" Margin="6" Watermark="Score" Width="150" />
@@ -27,7 +27,6 @@
                 Grid.Row="1"
                 HorizontalAlignment="Center">
                 <TextBox x:Name="SpellcardsTextBox" Margin="6" Watermark="Spell cards" Width="150" />
-                <TextBox x:Name="UFOsTextBox" Margin="6" Watermark="UFOs" Width="150" />
             </WrapPanel>
             <WrapPanel
                 Grid.Row="2"
@@ -38,11 +37,46 @@
                 <CheckBox x:Name="AutocollectItemsCheckBox" Margin="6">Autocollect items</CheckBox>
                 <CheckBox x:Name="GrazeCheckBox" Margin="6">Graze</CheckBox>
             </WrapPanel>
-            <Button
+            <StackPanel
                 Grid.Row="3"
+                HorizontalAlignment="Center"
+                Spacing="30"
+                Orientation="Horizontal">
+                <Label>UFO Slot 1</Label>
+                <Label>UFO Slot 2</Label>
+                <Label>UFO Slot 3</Label>
+            </StackPanel>
+            <StackPanel
+                Grid.Row="4"
+                HorizontalAlignment="Center"
+                Cursor="Hand"
+                Orientation="Horizontal"
+                Spacing="30">
+                <ComboBox x:Name="UFOSlot1" SelectedIndex="0">
+                    <ComboBoxItem>None</ComboBoxItem>
+                    <ComboBoxItem>Red</ComboBoxItem>
+                    <ComboBoxItem>Green</ComboBoxItem>
+                    <ComboBoxItem>Blue</ComboBoxItem>
+                </ComboBox>
+                <ComboBox x:Name="UFOSlot2" SelectedIndex="0">
+                    <ComboBoxItem>None</ComboBoxItem>
+                    <ComboBoxItem>Red</ComboBoxItem>
+                    <ComboBoxItem>Green</ComboBoxItem>
+                    <ComboBoxItem>Blue</ComboBoxItem>
+                </ComboBox>
+                <ComboBox x:Name="UFOSlot3" SelectedIndex="0">
+                    <ComboBoxItem>None</ComboBoxItem>
+                    <ComboBoxItem>Red</ComboBoxItem>
+                    <ComboBoxItem>Green</ComboBoxItem>
+                    <ComboBoxItem>Blue</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+            <Button
+                Grid.Row="5"
                 x:Name="ApplyButton"
                 HorizontalAlignment="Center"
-                Cursor="Hand">
+                Cursor="Hand"
+                Margin="0 20 0 0">
                 Apply
             </Button>
         </Grid>
