@@ -76,7 +76,8 @@
                 x:Name="ApplyButton"
                 HorizontalAlignment="Center"
                 Cursor="Hand"
-                Margin="0 20 0 0">
+                Margin="0 20 0 0"
+                Click="ApplyButton_OnClick">
                 Apply
             </Button>
         </Grid>

@@ -48,4 +48,11 @@ public partial class MainWindow : Window
             if (result == ButtonResult.Ok) Environment.Exit(0);
         });
     }
+
+    private void ApplyButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        touhou.Invulnerability = (bool)InvulnerabilityCheckBox.IsChecked;
+        touhou.Autobomb = (bool)AutobombCheckBox.IsChecked;
+        touhou.AutocollectItems = (bool)AutocollectItemsCheckBox.IsChecked;
+    }
 }
