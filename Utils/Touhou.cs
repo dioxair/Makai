@@ -105,6 +105,9 @@ namespace Makai.Utils
             }
         }
 
+        public void DisableGraze() => memory.FreezeValue(GetMemoryAddress(signatures.Graze, offsets.Graze), "int", "0");
+        public void EnableGraze() => memory.UnfreezeValue(GetMemoryAddress(signatures.Graze, offsets.Graze));
+
         private long GetCachedAddress(string signature)
         {
             if (!cachedMemAddresses.TryGetValue(signature, out long address))

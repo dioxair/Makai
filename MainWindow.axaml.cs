@@ -54,5 +54,10 @@ public partial class MainWindow : Window
         touhou.Invulnerability = (bool)InvulnerabilityCheckBox.IsChecked;
         touhou.Autobomb = (bool)AutobombCheckBox.IsChecked;
         touhou.AutocollectItems = (bool)AutocollectItemsCheckBox.IsChecked;
+
+        if ((bool)GrazeCheckBox.IsChecked)
+            touhou.DisableGraze();
+        else
+            touhou.EnableGraze();
     }
 }
