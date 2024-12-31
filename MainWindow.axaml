@@ -55,20 +55,20 @@
                 <ComboBox x:Name="UFOSlot1" SelectedIndex="0">
                     <ComboBoxItem>None</ComboBoxItem>
                     <ComboBoxItem>Red</ComboBoxItem>
-                    <ComboBoxItem>Green</ComboBoxItem>
                     <ComboBoxItem>Blue</ComboBoxItem>
+                    <ComboBoxItem>Green</ComboBoxItem>
                 </ComboBox>
                 <ComboBox x:Name="UFOSlot2" SelectedIndex="0">
                     <ComboBoxItem>None</ComboBoxItem>
                     <ComboBoxItem>Red</ComboBoxItem>
-                    <ComboBoxItem>Green</ComboBoxItem>
                     <ComboBoxItem>Blue</ComboBoxItem>
+                    <ComboBoxItem>Green</ComboBoxItem>
                 </ComboBox>
                 <ComboBox x:Name="UFOSlot3" SelectedIndex="0">
                     <ComboBoxItem>None</ComboBoxItem>
                     <ComboBoxItem>Red</ComboBoxItem>
-                    <ComboBoxItem>Green</ComboBoxItem>
                     <ComboBoxItem>Blue</ComboBoxItem>
+                    <ComboBoxItem>Green</ComboBoxItem>
                 </ComboBox>
             </StackPanel>
             <Button

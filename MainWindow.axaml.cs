@@ -36,6 +36,33 @@ public partial class MainWindow : Window
         th12[0].Exited += IfTouhouExited;
     }
 
+    private void ApplyButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        touhou.Invulnerability = (bool)InvulnerabilityCheckBox.IsChecked;
+        touhou.Autobomb = (bool)AutobombCheckBox.IsChecked;
+        touhou.AutocollectItems = (bool)AutocollectItemsCheckBox.IsChecked;
+
+        if ((bool)GrazeCheckBox.IsChecked)
+            touhou.DisableGraze();
+        else
+            touhou.EnableGraze();
+
+        /* TODO: it looks like when changing a ufo slot already filled, the slot number will
+         * go up by one when the player gains another ufo. this needs to be fixed.
+         */
+        UpdateUFOSlot(UFOSlot1.SelectedIndex, value => touhou.UFOSlot1 = value);
+        UpdateUFOSlot(UFOSlot2.SelectedIndex, value => touhou.UFOSlot2 = value);
+        UpdateUFOSlot(UFOSlot3.SelectedIndex, value => touhou.UFOSlot3 = value);
+    }
+
+    private void UpdateUFOSlot(int selectedIndex, Action<int> setUFOSlot)
+    {
+        if (Enum.IsDefined(typeof(Touhou.UFOColor), selectedIndex))
+        {
+            setUFOSlot(selectedIndex);
+        }
+    }
+
     private async void IfTouhouExited(object? sender, EventArgs e)
     {
         await Dispatcher.UIThread.Invoke(async () =>
@@ -47,17 +74,5 @@ public partial class MainWindow : Window
             ButtonResult result = await messageBox.ShowAsync();
             if (result == ButtonResult.Ok) Environment.Exit(0);
         });
-    }
-
-    private void ApplyButton_OnClick(object? sender, RoutedEventArgs e)
-    {
-        touhou.Invulnerability = (bool)InvulnerabilityCheckBox.IsChecked;
-        touhou.Autobomb = (bool)AutobombCheckBox.IsChecked;
-        touhou.AutocollectItems = (bool)AutocollectItemsCheckBox.IsChecked;
-
-        if ((bool)GrazeCheckBox.IsChecked)
-            touhou.DisableGraze();
-        else
-            touhou.EnableGraze();
     }
 }

@@ -26,6 +26,14 @@ namespace Makai.Utils
             memory.OpenProcess("th12.exe");
         }
 
+        public enum UFOColor
+        {
+            None,
+            Red,
+            Blue,
+            Green
+        }
+
         public int Score
         {
             get => GetIntFromSignature(signatures.Score, offsets.Score);
