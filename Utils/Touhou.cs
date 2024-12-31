@@ -44,11 +44,6 @@ namespace Makai.Utils
             get => GetIntFromSignature(signatures.HighScore, offsets.HighScore);
             set => SetIntFromSignature(signatures.HighScore, offsets.HighScore, value.ToString());
         }
-        public int Power
-        {
-            get => GetIntFromSignature(signatures.Power, offsets.Power);
-            set => SetIntFromSignature(signatures.Power, offsets.Power, value.ToString());
-        }
         public int Graze
         {
             get => GetIntFromSignature(signatures.Graze, offsets.Graze);
@@ -83,6 +78,11 @@ namespace Makai.Utils
                 offsets.SpellcardsPart);
             set => SetFloatFromSignature(signatures.Spellcards, signatures.SpellcardsPart, offsets.Spellcards,
                 offsets.SpellcardsPart, value);
+        }
+        public float Power
+        {
+            get => GetIntFromSignature(signatures.Power, offsets.Power) / 100f;
+            set => SetIntFromSignature(signatures.Power, offsets.Power, (value * 100f).ToString());
         }
 
         public bool Autobomb
