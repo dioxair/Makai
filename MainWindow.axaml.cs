@@ -8,6 +8,7 @@ using MsBox.Avalonia.Enums;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Base;
 using Avalonia.Threading;
+using System.Text.RegularExpressions;
 
 namespace Makai;
 
@@ -36,6 +37,22 @@ public partial class MainWindow : Window
         th12[0].Exited += IfTouhouExited;
     }
 
+    private void ValidateInput(object sender, TextChangedEventArgs e)
+    {
+        TextBox textBox = sender as TextBox;
+        if (textBox == null) return;
+
+        string input = textBox.Text;
+
+        string sanitizedInput = Regex.Replace(input, "[^0-9,.]", "");
+
+        if (sanitizedInput != input)
+        {
+            textBox.Text = sanitizedInput;
+            textBox.SelectionStart = sanitizedInput.Length;
+        }
+    }
+
     private void ApplyButton_OnClick(object? sender, RoutedEventArgs e)
     {
         touhou.Invulnerability = (bool)InvulnerabilityCheckBox.IsChecked;
@@ -53,6 +70,12 @@ public partial class MainWindow : Window
         UpdateUFOSlot(UFOSlot1.SelectedIndex, value => touhou.UFOSlot1 = value);
         UpdateUFOSlot(UFOSlot2.SelectedIndex, value => touhou.UFOSlot2 = value);
         UpdateUFOSlot(UFOSlot3.SelectedIndex, value => touhou.UFOSlot3 = value);
+
+        UpdateNumberProperty(ScoreTextBox.Text, text => touhou.Score = RemoveCommasAndPeriods(text) / 10);
+        UpdateNumberProperty(HiScoreTextBox.Text, text => touhou.HighScore = RemoveCommasAndPeriods(text) / 10);
+        UpdateNumberProperty(LivesTextBox.Text, text => touhou.Lives = ReplaceCommas(text));
+        UpdateNumberProperty(SpellcardsTextBox.Text, text => touhou.Spellcards = ReplaceCommas(text));
+        UpdateNumberProperty(PowerTextBox.Text, text => touhou.Power = ReplaceCommas(text));
     }
 
     private void UpdateUFOSlot(int selectedIndex, Action<int> setUFOSlot)
@@ -62,6 +85,17 @@ public partial class MainWindow : Window
             setUFOSlot(selectedIndex);
         }
     }
+
+    private void UpdateNumberProperty(string input, Action<string> updateAction)
+    {
+        if (!string.IsNullOrEmpty(input))
+        {
+            updateAction(input);
+        }
+    }
+
+    private float ReplaceCommas(string input) => float.Parse(Regex.Replace(input, @"[,\\s]", "."));
+    private int RemoveCommasAndPeriods(string input) => int.Parse(Regex.Replace(input, @"[,\.\s]", ""));
 
     private async void IfTouhouExited(object? sender, EventArgs e)
     {

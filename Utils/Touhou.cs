@@ -82,7 +82,7 @@ namespace Makai.Utils
         public float Power
         {
             get => GetIntFromSignature(signatures.Power, offsets.Power) / 100f;
-            set => SetIntFromSignature(signatures.Power, offsets.Power, (value * 100f).ToString());
+            set => SetIntFromSignature(signatures.Power, offsets.Power, Math.Round(value * 100f).ToString());
         }
 
         public bool Autobomb
