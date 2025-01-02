@@ -27,6 +27,7 @@
                 Grid.Row="1"
                 HorizontalAlignment="Center">
                 <TextBox x:Name="SpellcardsTextBox" Margin="6" Watermark="Spell cards" Width="150" />
+                <TextBox x:Name="PowerTextBox" Margin="6" Watermark="Power" Width="150" />
             </WrapPanel>
             <WrapPanel
                 Grid.Row="2"
